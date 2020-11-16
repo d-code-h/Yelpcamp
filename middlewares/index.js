@@ -2,8 +2,8 @@
                         // MIDDLEWARES
 // ==================================================================
 // Integrate Models and Declaration
-const Campground      =    require("../models/campground"),
-        Comment       =    require("../models/comment");
+const   Campground      =    require("../models/campground"),
+        Comment         =    require("../models/comment");
 
 // Export Authentication Object
 module.exports = {

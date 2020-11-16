@@ -4,8 +4,7 @@
 // ==================
 // Integrate Package and Models
 // ==================
-const   mongoose        =   require("mongoose"),
-        Campground      =   require("./models/campground"),
+const   Campground      =   require("./models/campground"),
         Comment         =   require("./models/comment");
 
 // ==================

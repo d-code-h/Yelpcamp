@@ -21,13 +21,13 @@ const createError             =   require('http-errors'),
 // ==================
 // Integrate Routes
 // ==================
-var campgroundsRoutes       =   require("./routes/campgrounds"),
+const campgroundsRoutes       =   require("./routes/campgrounds"),
       commentsRoutes          =   require("./routes/comments"),
       indexRoutes             =   require("./routes/index");
 // ==================
 // seedDB
 // ==================
-var seedDB                  =   require("./seeds");
+const seedDB                  =   require("./seeds");
 // seedDB();
 
 // ==================================================================
@@ -37,7 +37,7 @@ var seedDB                  =   require("./seeds");
 // Mongoose and Express-session
 // ==================
 // mongoose
-var url = process.env.DATABASEURL || "mongodb://localhost/YelpCamp2"
+const url = process.env.DATABASEURL || "mongodb://localhost/YelpCamp2"
 mongoose.connect(url, { 
   useNewUrlParser: true,
   useUnifiedTopology: true
