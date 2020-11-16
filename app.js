@@ -37,7 +37,8 @@ const seedDB                  =   require("./seeds");
 // Mongoose and Express-session
 // ==================
 // mongoose
-const url = process.env.DATABASEURL || "mongodb://localhost/YelpCamp2"
+console.log(process.env.DATABASEURL);
+const url = process.env.DATABASEURL || "mongodb://localhost/yelpcamp"
 mongoose.connect(url, { 
   useNewUrlParser: true,
   useUnifiedTopology: true
