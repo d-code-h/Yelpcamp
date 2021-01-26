@@ -1,75 +1,67 @@
-// ==================================================================
-                        // MIDDLEWARES
-// ==================================================================
-// Integrate Models and Declaration
-const   Campground      =    require("../models/campground"),
-        Comment         =    require("../models/comment");
+const Campground    =   require("../models/campground"),
+    Comment =   require("../models/comment"),
+    User    =   require("../models/user");
 
-// Export Authentication Object
 module.exports = {
-    // isLoggedIn Middleware
-    isLoggedIn: function(req, res, next){
-        // checking user loggin status
+    isLoggedIn: (req, res, next) => {
         if (req.isAuthenticated()){
-            // run text scripts
-            return next();
-        }
-        // redirect to login form
-        req.flash("error", "Please Login first");
-        res.redirect("/login");
-    },
-    // checkCampgroundOwnership Middleware
-    checkCampgroundOwnership: function(req, res, next){
-        // checking user loggin status
-        if (req.isAuthenticated()){
-            // fetch campground from DB
-            Campground.findById(req.params.id, function(err, foundCampground){
-                if (err){
-                    // on error! redirect back
-                    req.flash("error", "Campground not found");
-                    res.redirect("back");
-                }else {
-                    // comapre campground author with currently loggedin user
-                    if (foundCampground.author.id.equals(req.user._id)){
-                        // true! run next code
-                        return next();
-                    }
-                    // false! Go back
-                    req.flash("error", "You do not have the priviledge to do this");
-                    res.redirect("back");
-                }
-            });
-        // No
+            next();
         }else {
-            // redirect to login form on false
-            req.flash("error", "Please Login first");
+            req.flash("error", "Please login first!");
             res.redirect("/login");
         }
     },
-    // checkCommentOwnership Middleware
-    checkCommentOwnership: function(req, res, next){
-        // checking user loggin status
+    checkCampgroundOwnership: (req, res, next) => {
         if (req.isAuthenticated()){
-            // fetch comment from DB
-            Comment.findById(req.params.comment_id, function(err, foundComment){
+            Campground.findById(req.params.id, (err, foundCampground) => {
                 if (err){
-                    // on error! redirect back
-                    req.flash("error", "Comment not found");
+                    req.flash("error", err.message)
                     res.redirect("back");
                 }else {
-                    // comapre comment author with currently loggedin user
-                    if (foundComment.author.id.equals(req.user._id)){
-                        // true! run next code
-                        return next();
-                    }
-                    // on false! redirect back
-                    req.flash("error", "You do not have the priviledge to do this");
-                    res.redirect("back");
+                    User.findOne({username: "Administrator"}, (err, foundAdmin) => {
+                        if (err){
+                            req.flash("error", "Something went wrong. Please try again");
+                            res.redirect("/campgrounds");
+                        }else {
+                            if (req.user._id.equals(foundCampground.author.id)){
+                                next();
+                            }else {
+                                req.flash("error", "Sorry, You do not have permission to do that.");
+                                res.redirect("/campgrounds/" + req.params.id);
+                            }
+                        }
+                    })
                 }
             });
         }else {
-            // redirect to login form on false
-            req.flash("error", "Please Login first");
+            req.flash("error", "Please login first.");
+            res.redirect("/login");
+        }
+    },
+    checkCommentOwnership: (req, res, next) => {
+        if (req.isAuthenticated()){
+            Comment.findById(req.params.id, (err, foundComment) => {
+                if (err){
+                    req.flash("error", err.message)
+                    res.redirect("back");
+                }else {
+                    User.findOne({username: "Administrator"}, (err, foundAdmin) => {
+                        if (err){
+                            req.flash("error", "Something went wrong. Please try again.");
+                            res.redirect("/campgrounds/" + req.params.id);
+                        }else {
+                            if (req.user._id.equals(foundComment.author.id) || req.user._id.equals(foundAdmin._id) ){
+                                next();
+                            }else {
+                                req.flash("error", "Sorry, You do not have permission to do that.");
+                                res.redirect("/campgrounds/" + req.params.id);
+                            }
+                        }
+                    })
+                }
+            });
+        }else {
+            req.flash("error", "Please login first.");
             res.redirect("/login");
         }
     }

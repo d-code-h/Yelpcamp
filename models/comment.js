@@ -1,13 +1,7 @@
-// ==================================================================
-                        // COMMENT MODEL
-// ==================================================================
-// Integrate Package
-const mongoose    =   require("mongoose");
+const mongoose = require("mongoose");
 
-// Create Mongoose Schema for Comment
 const commentSchema = new mongoose.Schema({
     text: String,
-    created: {type: Date, default: Date.now},
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
@@ -17,5 +11,4 @@ const commentSchema = new mongoose.Schema({
     }
 });
 
-// Create Mongoose model and Export
 module.exports = mongoose.model("Comment", commentSchema);

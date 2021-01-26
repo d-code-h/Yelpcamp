@@ -1,116 +1,97 @@
-// ==================================================================
-                        // COMMENT ROUTE
-// ==================================================================
-// ==================
-// Integrate Packages
-// ==================
-const   Campground      = require("../models/campground"),
-        Comment         =   require("../models/comment"),
-        middlewareObj   =   require("../middlewares"),
-        express         =   require("express"),
-        router          =   express.Router({mergeParams: true});
+const express = require("express"),
+    router  =   express.Router({mergeParams: true}),
+    Campground  =   require("../models/campground"),
+    Comment =   require("../models/comment"),
+    middleware  =   require("../middlewares/");
 
-// ==================
-// Routes
-// ==================
-// new
-router.get("/new", middlewareObj.isLoggedIn, function(req, res){
-    // fetch campground from DB
-    Campground.findById(req.params.id, function(err, foundCampground){
+
+router.get("/new", middleware.isLoggedIn, (req, res) => {
+    Campground.findById(req.params.id, (err, foundCampground) => {
         if (err){
-            // error! redirect to campground show page
-            req.flash("error", "Something went wrong");
+            req.flash("error", err.message);
             res.redirect("back");
         }else {
-            // success! to new form
-            res.render("comment/new", {campground: foundCampground});
+            res.render("comments/new", {campground: foundCampground});
         }
-    });
-});
+    })
+});  
 
-// create
-router.post("/", middlewareObj.isLoggedIn, function(req, res){
-    // fetch campground from DB
-    Campground.findById(req.params.id, function(err, foundCampground){
+router.post("/", middleware.isLoggedIn, (req, res) => {
+    let newComment = new Comment(
+        {
+            text: req.body.text,
+            author: {
+                id: req.user._id,
+                username: req.user.username
+            }
+        }
+        );
+    newComment.save((err, createdComment) => {
         if (err){
-            // error! redirect back to comment new form
-            req.flash("error", "Something went wrong");
+            req.flash("error", err.message);
             res.redirect("back");
         }else {
-            // store new comment form data into object
-            var data = {
-                text: req.body.text,
-                author: {
-                    id: req.user._id,
-                    username: req.user.username
-                }
-            }
-            // create comment
-            Comment.create(data, function(err, createdComment){
+            Campground.findById(req.params.id, (err, foundCampground) => {
                 if (err){
-                    // error! redirect back to comment new form
-                    req.flash("error", "Something went wrong");
+                    req.flash("error", err.message);
                     res.redirect("back");
                 }else {
-                    // success! store comment and off to campground show page with updated data
                     foundCampground.comments.push(createdComment);
-                    foundCampground.save();
-                    req.flash("success", "Comment successfully added to campground");
-                    res.redirect("/campgrounds/" + req.params.id);
+                    foundCampground.save((err, savedCampground) => {
+                        if (err){
+                            req.flash("error", err.message);
+                            res.redirect("back");
+                        }else {
+                            req.flash("success", "Comment succcessfully added");
+                            res.redirect("/campgrounds/" + req.params.id);
+                        }
+                    });
                 }
             });
         }
     });
 });
 
-// edit
-router.get("/:comment_id/edit", middlewareObj.checkCommentOwnership, function(req, res){
-    // fetch comment from DB
-    Comment.findById(req.params.comment_id, function(err, foundComment){
+
+router.get("/:commentId/edit", middleware.checkCommentOwnership, (req, res) => {
+    Comment.findById(req.params.commentId, (err, foundComment) => {
         if (err){
-            // error! back to campground show page
-            req.flash("error", "Something went wrong");
+            req.flash("error", err.message);
             res.redirect("back");
         }else {
-            // success! to edit template
-            res.render("comment/edit", {comment: foundComment, campground_id: req.params.id});
+            res.render("comments/edit", {comment: foundComment, campgroundId: req.params.id});
         }
     });
 });
 
-// update
-router.put("/:comment_id", middlewareObj.checkCommentOwnership, function(req, res){
-    // fetch comment from DB and update
-    Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment){
+router.put("/:commentId", middleware.checkCommentOwnership, (req, res) => {
+    let editComment = {
+        text: req.body.text,
+        author: {
+            id: req.user._id,
+            username: req.user.username
+        }
+    }
+    Comment.findByIdAndUpdate(req.params.commentId, editComment, (err, updatedComment) => {
         if (err){
-            // error! back to comment new form
-            req.flash("error", "Something went wrong");
+            req.flash("error", err.message);
             res.redirect("back");
         }else {
-            // success! off to campground show page with updated comment
-            req.flash("success", "Comment successfully updated");
+            req.flash("success", "Comment successfully updated.")
             res.redirect("/campgrounds/" + req.params.id);
         }
     });
 });
 
-// delete
-router.delete("/:comment_id", middlewareObj.checkCommentOwnership, function(req, res){
-    // fetch comment from DB and remove
-    Comment.findByIdAndRemove(req.params.comment_id, function(err){
+router.delete("/:commentId", middleware.checkCommentOwnership, (req, res) => {
+    Comment.findByIdAndRemove(req.params.commentId, (err, deletedComment) => {
         if (err){
-            // error! to campground show page
-            req.flash("error", "Something went wrong");
+            req.flash("error", err.message);
             res.redirect("back");
         }else {
-            // success! remain in page and effect comment deletion
-            req.flash("success", "Comment successfully remove from campground");
+            req.flash("success", "Comment successfully removed");
             res.redirect("/campgrounds/" + req.params.id);
         }
-    });
-});
-
-// ==================
-// Export Module
-// ==================
-module.exports = router;
+    })
+})
+module.exports  =   router;

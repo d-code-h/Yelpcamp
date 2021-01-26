@@ -1,86 +1,128 @@
-// ==================================================================
-                        // INDEX ROUTE
-// ==================================================================
-// ==================
-// Integrate Packages
-// ==================
-const   express     =   require("express"),
-        router      =   express.Router(),
-        passport    =   require("passport"),
-        User        =   require("../models/user");
+const express = require("express"),
+    User    =   require("../models/user"),
+    passport    =   require("passport"),
+    router  =   express.Router();
 
-// ==================
-// Routes
-// ==================
-// index
-router.get("/", function(req, res){
-    // landing template
+    
+router.get("/", (req, res) => {
     res.render("landing");
 });
 
-// register
-router.get("/register", function(req, res){
-    // register template
+router.get("/register", (req, res) => {
     res.render("register");
 });
 
-// create user Logic
-router.post("/register", function(req, res){
-    if (req.body.password == req.body.confPassword){
-        // create new user
-        User.register(new User({username: req.body.username}), req.body.password, function(err, createdUser){
-            if (err){
-                // error! back to register form page
-                req.flash("error", err.message);
-                res.redirect("/register");
-            }else {
-                // success! login automatically
-                passport.authenticate("local")(req, res, function(){
-                    req.flash("success", "Welcome to YelpCamp " + createdUser.username);
-                    res.redirect("/campgrounds");
-                });
-            }
-        });
+router.post("/register", (req, res) => {
+    req.body.username       =   req.sanitize(req.body.username);
+    req.body.secretQ        =   req.sanitize(req.body.secretQ);
+    req.body.secretA        =   req.sanitize(req.body.secretA);
+    req.body.password       =   req.sanitize(req.body.password);
+    req.body.confPassword   =   req.sanitize(req.body.confPassword);
+
+    let usernameTest = /^[0-9a-z-A-Z]{3,}$/, 
+        passwordTest = /^[0-9a-zA-Z]{8,}$/;
+
+    if (
+        ((req.body.username !== "") && (usernameTest.test(req.body.username))) && 
+        ((req.body.secretQ !== "") && (req.body.secretA !== "")) && 
+        ((req.body.password !== "") && (passwordTest.test(req.body.password))) &&
+        ((req.body.confPassword !== "") && (passwordTest.test(req.body.confPassword)))
+    ){        
+        if (req.body.password === req.body.confPassword){
+            User.register(new User(
+                    {
+                        username: req.body.username,
+                        secretQ: req.body.secretQ,
+                        secretA: req.body.secretA
+                    }
+                ), req.body.password, (err, registeredUser) => {
+                if (err){
+                    req.flash("error", err.message);
+                    res.redirect("/register");
+                }else {
+                    passport.authenticate("local")(req, res, function(){
+                        req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
+                        res.redirect("/campgrounds");
+                    });
+                }
+            });
+        }else {
+            req.flash("error", "Sorry, password does not match!");
+            res.redirect("/register");
+        }
     }else {
-        req.flash("error", "Password does not match");
-        res.redirect("back");
+        req.flash("error", "Form isn't properly filled.");
+        res.redirect("/register");
     }
 });
 
-// login
-router.get("/login", function(req, res){
-    // login template
+router.get("/login", (req, res) => {
     res.render("login");
 });
 
-// login logic
 router.post("/login", passport.authenticate("local", {
-    // wrong! to login 
+    successRedirect: "/campgrounds",
     failureRedirect: "/login",
-    failureFlash: true
-    }), (req, res, next) => {
-        // issue a remember me cookie if the option was checked
-        if (!req.body.remember_me) { 
-        req.session.cookie.expires=false;
-        next(); 
-        }else {
-            req.session.cookie.originalMaxAge = 604800000;  // 7 days
-            next();
-        }
-    }, function(req, res){
-        // correct! to campgrounds
-        res.redirect("/campgrounds");
+    failureFlash: true,
+    successFlash: true
+    }), (req, res) => {
 });
 
-// logout logic
-router.get("/logout", function(req, res){
-    // logout current user and redirect to campgrounds
+router.get("/resetpassword", (req, res) => {
+    res.render("reset");
+});
+
+router.post("/resetpassword", (req, res) => {
+    req.body.username           =   req.sanitize(req.body.username);
+    req.body.secretQ            =   req.sanitize(req.body.secretQ);
+    req.body.secretA            =   req.sanitize(req.body.secretA);
+    req.body.newPassword        =   req.sanitize(req.body.newPassword);
+    req.body.confNewPassword    =   req.sanitize(req.body.confNewPassword);
+
+    let usernameTest = /^[0-9a-z-A-Z]{3,}$/, 
+        passwordTest = /^[0-9a-zA-Z]{8,}$/;
+
+    if (
+        ((req.body.username !== "") && (usernameTest.test(req.body.username))) && 
+        ((req.body.secretQ !== "") && (req.body.secretA !== "")) && 
+        ((req.body.pnewPssword !== "") && (passwordTest.test(req.body.newPassword))) &&
+        ((req.body.confNewPassword !== "") && (passwordTest.test(req.body.confNewPassword)))
+    ){ 
+        if (req.body.newPassword === req.body.confNewPassword){
+            User.findOne({
+                username: req.body.username,
+                secretQ: req.body.secretQ,
+                secretA: req.body.secretA
+            }, (err, foundUser) => {
+               if (err || !foundUser){
+                    req.flash("error", "Details Incorrect.");
+                    res.redirect("/resetpassword");
+               }else {
+                   foundUser.setPassword(req.body.newPassword, () => {
+                       foundUser.save((err, updatedUser) => {
+                        if (err || !updatedUser){
+                            req.flash("error", "Something went wrong. Please try again.");
+                            res.redirect("/resetpassword");
+                        }else {
+                            req.flash("success", "Details successfully updated. Please login to continue.");
+                            res.redirect("/login");
+                        }
+                       });
+                   });
+               }
+            });
+        }
+    }
+});
+
+router.get("/logout", (req, res) => {
     req.logout();
-    req.flash("success", "You logged out");
+    req.flash("success", "You successfully logged out. See you soon")
     res.redirect("/campgrounds");
 });
 
-// ==================
-// Export Module
-// ==================
-module.exports  =   router;
+router.all("*", (req, res) => {
+    res.redirect("/");
+});
+
+module.exports = router;

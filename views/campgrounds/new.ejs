@@ -1,0 +1,77 @@
+<%- include ("../partials/header") %>
+
+<div class="container">
+  <main class="card shadow formscale">
+      <h1>Add Campground</h1>
+      <form action="/campgrounds" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+        <div class="form-floating">
+          <input type="text" class="form-control" name="title" id="title" placeholder="Title" required>
+          <label for="title">Title</label>
+          <div class="valid-feedback">
+            Great!
+          </div>
+          <div class="invalid-feedback">
+            Please fill in
+          </div>
+        </div>
+        <ul class="nav nav-pills d-flex d-md-none justify-content-center mt-3" id="pills-tab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="pills-file-tab" data-bs-toggle="pill" href="#pills-file" role="tab" aria-controls="pills-file" aria-selected="true">File</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="pills-link-tab" data-bs-toggle="pill" href="#pills-link" role="tab" aria-controls="pills-link" aria-selected="false">Link</a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-start">
+          <div class="nav flex-column nav-pills me-3 my-2 d-none d-md-flex" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-file-tab" data-bs-toggle="pill" href="#pills-file" role="tab" aria-controls="v-pills-file" aria-selected="true">File</a>
+            <a class="nav-link" id="v-pills-link-tab" data-bs-toggle="pill" href="#pills-link" role="tab" aria-controls="v-pills-link" aria-selected="false">Link</a>
+          </div>
+
+          <div class="tab-content w-100" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-file" role="tabpanel" aria-labelledby="pills-file-tab">
+              <div class="form-group">
+                <input type="file" name="imageFile" value="" id="imageFile" class="form-control mt-md-4 mb-3 mb-md-0" placeholder="Image File" required/>
+                <label class="sr-only" for="imageFile">Image</label>
+                <div class="valid-feedback">
+                  Great!
+                </div>
+                <div class="invalid-feedback">
+                  You need to fill either this or Link
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="pills-link" role="tabpanel" aria-labelledby="pills-link-tab">
+              <div class="form-floating">
+                <input type="text" class="form-control mt-3 mb-3" name="imageLink" id="imageLink" placeholder="http://" required />
+                <label for="imageLink">Image Link</label>
+                <div class="valid-feedback">
+                  Great!
+                </div>
+                <div class="invalid-feedback">
+                  You need to fill either this or File
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-floating">
+            <textarea class="form-control my-2" name="description" id="description" placeholder="Description" required></textarea>
+            <label for="description">Description</label>
+            <div class="valid-feedback">
+              Great!
+            </div>
+            <div class="invalid-feedback">
+              A campground without a description isn't good enough
+            </div>
+          </div>
+        <div class="form-group submit">
+          <input class="btn btn-info mx-auto d-block" type="submit" value="Submit" />
+        </div>
+      </form>
+      <a href="/campgrounds"><i class="fa fa-arrow-circle-left fa-bg"></i> Go back</a>
+  </main>
+</div>
+
+<%- include ("../partials/footer") %>

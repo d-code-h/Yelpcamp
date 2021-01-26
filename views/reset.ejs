@@ -1,0 +1,89 @@
+<%- include ("./partials/header") %>
+
+<div class="container">
+  <main class="card shadow formscale">
+      <h1>Reset Password</h1>
+      <form action="/reset" method="POST" class="needs-validation" novalidate>
+        <div class="form-floating">
+          <input type="text" class="form-control" name="username" id="username" placeholder="Username" pattern="^[0-9A-Za-z]{3,}$" title="Minimum three input is require. Only Alphabets and numbers!" required />
+          <label for="username">Username</label>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+          <div class="invalid-feedback">
+            Minimum three input is require. Only Alphabets and numbers!
+          </div>
+        </div>
+        <select class="form-select mb-3" aria-label="Default select example" name="secretQ">
+          <option value="What was your childhood nickname?" selected>What was your childhood nickname?</option>
+          <option value="On what street did you live as a child?">On what street did you live as a child?</option>
+          <option value="In what city did you meet your spouse/significant other?">In what city did you meet your spouse/significant other?</option>
+          <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
+          <option value="What street did you live on in third grade?">What street did you live on in third grade?</option>
+          <option value="What is your oldest sibling’s birthday month and year?">What is your oldest sibling’s birthday month and year?</option>
+          <option value="What is the middle name of your youngest child?">What is the middle name of your youngest child?</option>
+          <option value="What is your oldest sibling's middle name?">What is your oldest sibling's middle name?</option>
+          <option value="What was your childhood phone number including area code?">What was your childhood phone number including area code?</option>
+          <option value="What is your oldest cousin's first and last name?">What is your oldest cousin's first and last name?</option>
+          <option value="What was the name of your first stuffed animal?">What was the name of your first stuffed animal?</option>
+          <option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</option>
+          <option value="Where were you when you had your first kiss?">Where were you when you had your first kiss?</option>
+          <option value="What school did you attend for sixth grade?">What school did you attend for sixth grade?</option>
+          <option value="What is the first name of the boy or girl that you first kissed?">What is the first name of the boy or girl that you first kissed?</option>
+          <option value="What was the last name of your third grade teacher">What was the last name of your third grade teacher?</option>
+          <option value="In what city does your nearest sibling live?">In what city does your nearest sibling live?</option>
+          <option value="What is your youngest brother’s birthday month and year? (e.g., January 1900)">What is your youngest brother’s birthday month and year?</option>
+          <option value="What is your maternal grandmother's maiden name?">What is your maternal grandmother's maiden name?</option>
+          <option value="In what city or town was your first job?">In what city or town was your first job?</option>
+          <option value="What is the name of the place your wedding reception was held?">What is the name of the place your wedding reception was held?</option>
+          <option value="What is the name of a college you applied to but didn't attend?">What is the name of a college you applied to but didn't attend?</option>
+          <option value="Where were you when you first heard about 9/11?">Where were you when you first heard about 9/11?</option>
+          div class="valid-feedback">
+            Looks good!
+          </div>
+          <div class="invalid-feedback">
+            Please choose an option.
+          </div>
+        </select>
+
+        <div class="form-floating">
+          <input type="text" class="form-control" name="secretA" id="secretA" placeholder="Secret Answer" required />
+          <label for="secretQA">Secret Answer</label>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+          <div class="invalid-feedback">
+            Security answer is required.
+          </div>
+        </div>
+
+        <div class="form-floating">
+          <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="New Password" pattern="^[0-9A-Za-z]{8,}$" title="Minimum eight input is require. Only Alphabets and numbers!" required />
+          <label for="newPassword">New Password</label>
+          <div class="valid-feedback">
+            Great!
+          </div>
+          <div class="invalid-feedback">
+            Minimum eight input is require. Only Alphabets and numbers!
+          </div>
+        </div>
+
+        <div class="form-floating">
+            <input type="password" class="form-control" name="confNewPassword" id="confNewPassword" placeholder="Confirm New Password" pattern="^[0-9A-Za-z]{8,}$" title="Minimum eight input is require. Only Alphabets and numbers!" required />
+            <label for="confNewPassword">Confirm New Password</label>
+            <div class="valid-feedback">
+            Great!
+          </div>
+          <div class="invalid-feedback">
+            Minimum eight input is require. Only Alphabets and numbers!
+          </div>
+          </div>
+        <div class="form-group submit">
+          <input class="btn btn-info d-block mx-auto" type="submit" value="Reset" />
+        </div>
+      </form>
+      <a href="/campgrounds"><i class="fa fa-arrow-circle-left fa-bg"></i> Go back</a>
+  </main>
+</div>
+
+<%- include ("./partials/footer") %>
