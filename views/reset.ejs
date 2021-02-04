@@ -3,7 +3,7 @@
 <div class="container">
   <main class="card shadow formscale">
       <h1>Reset Password</h1>
-      <form action="/reset" method="POST" class="needs-validation" novalidate>
+      <form action="/resetpassword" method="POST" class="needs-validation" novalidate>
         <div class="form-floating">
           <input type="text" class="form-control" name="username" id="username" placeholder="Username" pattern="^[0-9A-Za-z]{3,}$" title="Minimum three input is require. Only Alphabets and numbers!" required />
           <label for="username">Username</label>
@@ -58,24 +58,24 @@
         </div>
 
         <div class="form-floating">
-          <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="New Password" pattern="^[0-9A-Za-z]{8,}$" title="Minimum eight input is require. Only Alphabets and numbers!" required />
+          <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="New Password" pattern="^[0-9A-Za-z]{8,}$" title="Minimum eight input: A capital, two small and two numbers is require!" required />
           <label for="newPassword">New Password</label>
           <div class="valid-feedback">
             Great!
           </div>
           <div class="invalid-feedback">
-            Minimum eight input is require. Only Alphabets and numbers!
+            Minimum a capital, two digits, two small and not less than 8 values is accepted!
           </div>
         </div>
 
         <div class="form-floating">
-            <input type="password" class="form-control" name="confNewPassword" id="confNewPassword" placeholder="Confirm New Password" pattern="^[0-9A-Za-z]{8,}$" title="Minimum eight input is require. Only Alphabets and numbers!" required />
+            <input type="password" class="form-control" name="confNewPassword" id="confNewPassword" placeholder="Confirm New Password" pattern="^[0-9A-Za-z]{8,}$" title="Minimum eight input: A capital, two small and two numbers is require!" required />
             <label for="confNewPassword">Confirm New Password</label>
             <div class="valid-feedback">
             Great!
           </div>
           <div class="invalid-feedback">
-            Minimum eight input is require. Only Alphabets and numbers!
+            Minimum a capital, two digits, two small and not less than 8 values is accepted!
           </div>
           </div>
         <div class="form-group submit">

@@ -58,24 +58,24 @@
         </div>
 
         <div class="form-floating">
-          <input type="password" class="form-control" name="password" id="password" placeholder="Password" pattern="^[0-9A-Za-z]{8,}$" title="Minimum eight input is require. Only Alphabets and numbers!" required />
+          <input type="password" class="form-control" name="password" id="password" placeholder="Password" pattern="^(?=.*[a-z].*[a-z])(?=.*[A-Z])(?=.*\d.*\d)[a-zA-Z0-9\S]{8,}$" title="Minimum eight input: A capital, two small and two numbers is require!" required />
           <label for="password">Password</label>
           <div class="valid-feedback">
             Great!
           </div>
           <div class="invalid-feedback">
-            Minimum eight input is require. Only Alphabets and numbers!
+            Minimum a capital, two digits, two small and not less than 8 values is accepted!
           </div>
         </div>
 
         <div class="form-floating">
-            <input type="password" class="form-control" name="confPassword" id="confPassword" placeholder="Confirm Password" pattern="^[0-9A-Za-z]{8,}$" title="Minimum eight input is require. Only Alphabets and numbers!" required />
+            <input type="password" class="form-control" name="confPassword" id="confPassword" placeholder="Confirm Password" pattern="^(?=.*[a-z].*[a-z])(?=.*[A-Z])(?=.*\d.*\d)[a-zA-Z0-9\S]{8,}$" title="Minimum eight input: A capital, two small and two numbers is require!" required />
             <label for="confPassword">Confirm Password</label>
             <div class="valid-feedback">
             Great!
           </div>
           <div class="invalid-feedback">
-            Minimum eight input is require. Only Alphabets and numbers!
+            Minimum a capital, two digits, two small and not less than 8 values is accepted!
           </div>
           </div>
         <div class="form-group submit">

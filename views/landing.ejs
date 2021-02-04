@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- Meta info -->
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>YelpCamp 1</title>
+        <!-- Title -->
+        <title>YelpCamp</title>
         <link rel="icon" href="/images/favicon.png" type="image/png" />
-        <!-- <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Open+Sans&display=swap" rel="stylesheet" /> -->
+        <!-- Google font -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@600&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="/vendors/bootstrap5/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-        <link rel="stylesheet" href="/vendors/fontawesome/css/all.min.css" />
+        
+        <!-- ENVs -->
+        <%- BOOTSTRAP_CSS %>
+        <%- ANIMATE_CSS %>
+        <%- FONT_AWESOME %>
+
+        <!-- Custom style -->
         <link rel="stylesheet" href="/stylesheets/landing.css" />
     </head>
     <body>
+        <!-- Homepage -->
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -22,17 +28,17 @@
                         <h1 class="animate__animated animate__fadeInDown animate__slow">YelpCamp</h1>
                         <h3 class="animate__animated animate__fadeIn animate__slow">Start planning your next trip today</h3>
                         <hr>
-                        <a href="/campgrounds" class="btn btn-primary btn-lg animate__animated animate__fadeInLeft animate__slow"><i class="fa fa-tree"></i> Campgrounds</a>
-                        <a href="/login" class="btn btn-info btn-lg animate__animated animate__fadeInRight animate__slow"><i class="fa fa-user"></i> Login</a>
+                        <a href="/campgrounds" class="btn btn-primary btn-lg animate__animated animate__fadeInLeft animate__slow m-1"><i class="fa fa-tree"></i> Campgrounds</a>
+                        <a href="/login" class="btn btn-info btn-lg animate__animated animate__fadeInRight animate__slow m-1"><i class="fa fa-user"></i> Login</a>
                     </div>
                 </div>
             </div>
         </div>
+
+        
         <!-- scripts -->
-        <script src="/vendors/jquery/jquery-3.5.1.min.js"></script>
-        <!-- bootstrap js -->
-        <script src="/vendors/bootstrap5/js/bootstrap.min.js"></script>
-        <!-- my script -->
-        <script src="/javascripts/landing.js"></script>
+        <%- JQUERY %>
+        <%- BOOTSTRAP_JS %>
+        <script src="/javascripts/landing.js"></script> <!-- Custom script -->
     </body>
  </html>

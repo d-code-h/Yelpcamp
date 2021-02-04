@@ -16,19 +16,19 @@
         </div>
 
         <div class="form-floating">
-          <input type="password" class="form-control" name="password" id="password" placeholder="Password" minlength="8" required />
+          <input type="password" class="form-control" name="password" id="password" placeholder="Password" pattern="^(?=.*[a-z].*[a-z])(?=.*[A-Z])(?=.*\d.*\d)[a-zA-Z0-9\S]{8,}$" required />
           <label for="password">Password</label>
           <div class="valid-feedback">
             Great!
           </div>
           <div class="invalid-feedback">
-            Choose minimum 8 values as your password please.
+            Minimum a capital, two digits, two small and not less than 8 values is accepted!
           </div>
         </div>
 
         <div class="form-check">
-          <input class="form-check-input rememberme" type="checkbox" id="rememberme">
-          <label class="form-check-label mt-2" for="rememberme">
+          <input class="form-check-input" name="remember" value="remember" type="checkbox" id="remember">
+          <label class="form-check-label mt-2" for="remember">
             Remember me
           </label>
         </div>

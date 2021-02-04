@@ -25,21 +25,22 @@ jQuery(window).on('load', function(){
     }, false);
 })();
 
-$("#imageFile").blur(function(){
+$("#imageFile, #newImageFile").blur(function(){
     if ($(this).val() !== ""){
         $("#pills-link-tab, v-pills-link-tab").addClass("disabled");
-        $("#imageLink").removeAttr("required");
+        $("#imageLink, #newImageLink").removeAttr("required");
     }else {
-        $("#imageLink").attr("required");
+        $("#imageLink, #newImageLink").attr("required");
         $("#pills-link-tab, #v-pills-file-tab").removeClass("disabled");
     }
 });
-$("#imageLink").blur(function(){
+
+$("#imageLink, #newImageLink").blur(function(){
     if ($(this).val() !== ""){
         $("#pills-file-tab, #v-pills-file-tab").addClass("disabled");
-        $("#imageFile").removeAttr("required");
+        $("#imageFile, #newImageFile").removeAttr("required");
     }else {
-        $("#imageFile").attr("required");
+        $("#imageFile, #newImageFile").attr("required");
         $("#pills-file-tab, #v-pills-file-tab").removeClass("disabled");
     }
-})
+});

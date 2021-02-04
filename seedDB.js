@@ -1,8 +1,10 @@
-var Campground  =   require("./models/campground"),
-    Comment =   require("./models/comment"),
-    User    =   require("./models/user");
+// Require models
+const   Campground  =   require("./models/campground"),
+        Comment     =   require("./models/comment"),
+        User        =   require("./models/user");
 
-var sampleData = [
+// Sample data
+const sampleData = [
     {
         title: "First Man",
         image: "/images/unsplash1.jpg",
@@ -45,48 +47,31 @@ var sampleData = [
     }
 ];
 
-function seedDB(){
-    Campground.deleteMany({}, function(err, removedCampgrounds){
-        if (err){
-            console.log(err.message);
-        }else {
-            Comment.deleteMany({}, function(err, removedComments){
-                if (err){
-                    console.log(err.message);
-                }else {
-                    User.deleteMany({}, (err, removedUsers) => {
-                        if (err){
-                            console.log(err.message);
-                        }else {
-                            // sampleData.forEach(function(data){
-                            //     var newCampground = new Campground({
-                            //         title: data.title,
-                            //         image: data.image,
-                            //         description: data.description
-                            //     });
-                            //     Comment.create({
-                            //         text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus voluptatem, minima quod delectus aut quasi modi illum deserunt tenetur dolore, cumque reprehenderit, rem nulla deleniti. Eius nobis neque fugiat ipsum."
-                            //     }, function(err, createdComment){
-                            //         if (err){
-                            //             console.log(err.message);
-                            //         }else {
-                            //             newCampground.comments.push(createdComment);
-                            //             newCampground.save(function(err, savedCampground){
-                            //                 if (err){
-                            //                     console.log(err.message);
-                            //                 }else {
-                            //                     console.log("Admin Added New Campground!");
-                            //                 }
-                            //             });
-                            //         }
-                            //     })
-                            // });
-                        }
-                    })
-                }
-            });
-        }
-    });
+async function seedDB(){
+    try {
+        await Campground.deleteMany({});
+        await Comment.deleteMany({});
+        await User.deleteMany({});
+        // sampleData.forEach(function async(data){
+        //     // Create new campground
+        //     let newCampground = new Campground({
+        //         title: data.title,
+        //         image: data.image,
+        //         description: data.description
+        //     });
+        //     // Create an store new comment
+        //     await Comment.create({
+        //         text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus voluptatem, minima quod delectus aut quasi modi illum deserunt tenetur dolore, cumque reprehenderit, rem nulla deleniti. Eius nobis neque fugiat ipsum."
+        //     });
+        //     await newCampground.comments.push(createdComment);
+        //     await newCampground.save();
+        //     console.log("Admin Added New Campground!");
+        // });
+
+    }catch(err){
+        console.log(err);
+    }
 }
 
+// Export module
 module.exports = seedDB;

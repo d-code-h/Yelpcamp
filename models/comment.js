@@ -1,5 +1,7 @@
+// Require package
 const mongoose = require("mongoose");
 
+// Comment schema
 const commentSchema = new mongoose.Schema({
     text: String,
     author: {
@@ -11,4 +13,5 @@ const commentSchema = new mongoose.Schema({
     }
 });
 
+// Export module
 module.exports = mongoose.model("Comment", commentSchema);

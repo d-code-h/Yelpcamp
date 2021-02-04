@@ -5,8 +5,8 @@
       <h1>Edit <%= campground.title %></h1>
       <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POSt" class="needs-validation" novalidate enctype="multipart/form-data">
         <div class="form-floating">
-          <input type="text" class="form-control" name="title" value="<%= campground.title %>" id="title" placeholder="Title" required>
-          <label for="title">Title</label>
+          <input type="text" class="form-control" name="newTitle" value="<%= campground.title %>" id="newTitle" placeholder="New Title" required>
+          <label for="newTitle">Title</label>
           <div class="valid-feedback">
             Great!
           </div>
@@ -31,8 +31,8 @@
           <div class="tab-content w-100" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-file" role="tabpanel" aria-labelledby="pills-file-tab">
               <div class="form-group">
-                <input type="file" name="imageFile" value="" id="imageFile" class="form-control mt-md-4 mb-3 mb-md-0" placeholder="Image File" required/>
-                <label class="sr-only" for="imageFile">Image</label>
+                <input type="file" name="newImageFile" value="" id="newImageFile" class="form-control mt-md-4 mb-3 mb-md-0" placeholder="New Image File" required/>
+                <label class="sr-only" for="newImageFile">Image</label>
                 <div class="valid-feedback">
                   Great!
                 </div>
@@ -43,8 +43,8 @@
             </div>
             <div class="tab-pane fade" id="pills-link" role="tabpanel" aria-labelledby="pills-link-tab">
               <div class="form-floating">
-                <input type="text" class="form-control mt-3 mb-3" name="imageLink" value="<%= campground.image %>" id="imageLink" placeholder="http://" required />
-                <label for="imageLink">Image Link</label>
+                <input type="text" class="form-control mt-3 mb-3" name="newImageLink" value="" id="newImageLink" placeholder="http://" required />
+                <label for="newImageLink">Image Link</label>
                 <div class="valid-feedback">
                   Great!
                 </div>
@@ -57,10 +57,10 @@
         </div>
 
         <div class="form-floating">
-            <textarea class="form-control my-2" name="description" id="description" placeholder="Description" required>
+            <textarea class="form-control my-2" name="newDescription" id="newDescription" placeholder="Description" required>
               <%= campground.description %>
             </textarea>
-            <label for="description">Description</label>
+            <label for="newDescription">Description</label>
             <div class="valid-feedback">
               Great!
             </div>
@@ -77,33 +77,3 @@
 </div>
 
 <%- include ("../partials/footer") %>
-
-<!-- <%- include ("../partials/header") %>
-
-<div class="container">
-  <main class="card shadow formscale">
-    <h1>Edit <%= campground.title %></h1>
-    <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
-      <div class="form-floating">
-        <input type="text" class="form-control" name="title" value="<%= campground.title %>" id="title" placeholder="Title" required />
-        <label for="title">Title</label>
-      </div>
-      <div class="form-group">
-        <input type="file" name="image" value="" id="image" class="form-control" placeholder="Image" required />
-        <label class="sr-only" for="image">Image</label>
-      </div>
-      <div class="form-floating">
-        <textarea class="form-control" name="description" id="description" placeholder="Description" required>
-          <%= campground.description %>
-        </textarea>
-        <label for="description">Description</label>
-      </div>
-      <div class="form-group submit">
-        <input class="btn btn-info" type="submit" value="Update" />
-      </div>
-    </form>
-    <a href="/campgrounds/<%= campground._id %>"><i class="fa fa-arrow-circle-left fa-bg"></i> Go back</a>
-  </main>
-</div>
-
-<%- include ("../partials/footer") %> -->
