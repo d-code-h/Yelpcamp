@@ -15,7 +15,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-      folder: "YelpCamp",
+      folder: process.env.FOLDER,
       format: async (req, file) => {
           "jpg", "jpeg", "png"
         }

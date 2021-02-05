@@ -15,9 +15,9 @@
                         // Routes
         indexRoutes         =   require("./routes/index"),
         campgroundRoutes    =   require("./routes/campgrounds"),
-        commentRoutes       =   require("./routes/comments");
+        commentRoutes       =   require("./routes/comments"),
                         // SeedDB
-        // seedDB              =   require("./seedDB")();
+    seedDB              =   require("./seedDB")();
     
         const cookieParser = require("cookie-parser"),
         MongoStore = require("connect-mongo")(session);
