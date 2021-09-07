@@ -9,8 +9,15 @@ skills to hit the market. </p>
 <p>On my own i felt i can make it more standard if not more 
 better.</p>
 
-<h2>Features of YelpCamp 2021.</h2>
+<h2>Features of look up to in the YelpCamp 2021.</h2>
 <ul>
 <li>New elegant designs</li>
-<li>Use of Bootstrap 5</li>
+<li>Use of Bootstrap 5 features</li>
+<li>Elegant designs</li>
+<li>Better Photo storage medium</li>
+<li>Support Admin Dashboard management</li>
+<li>Use up to date coding standards</li>
+<li>And many more...watch out!</li>
 </ul>
+
+<p>This project is still under <em>development</em></p>
