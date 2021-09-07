@@ -20,4 +20,4 @@ better.</p>
 <li>And many more...watch out!</li>
 </ul>
 
-<p>This project is still under <em>development</em></p>
+<p>This project is still under <em>development</em></p> :smiling_face_with_three_hearts:
