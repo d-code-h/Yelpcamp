@@ -10,5 +10,7 @@ skills to hit the market. </p>
 better.</p>
 
 <h2>Features of YelpCamp 2021.</h2>
-* New elegant designs
-* Use of Bootstrap 5
+<ul>
+<li>New elegant designs</li>
+<li>Use of Bootstrap 5</li>
+</ul>
